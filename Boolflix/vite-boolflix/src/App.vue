@@ -37,6 +37,18 @@ export default {
 </script>
 
 <style>
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  height: 100%;
+}
+
+#app {
+  min-height: 100vh;
+}
+
 /* Style Header*/
 header {
   display: flex;
