@@ -7,7 +7,7 @@
       <p>{{ movie.original_title || movie.original_name }}</p>
       <span>{{ getFlagImage(movie.original_language) }}</span>
       <div class="rating">
-        <span v-for="star in getRatingStars(movie.vote_average)" :key="star" class="stars"><span: class="star"></span:></span>
+        <span v-for="star in getRatingStars(movie.vote_average)" :key="star" class="stars"><span class="star"></span></span>
           <!-- Implementa stelle -->
         </div>
       </div>
@@ -30,18 +30,18 @@ export default {
     getMoviePosterUrl(posterPath) {
       const baseUrl = 'https://image.tmdb.org/t/p/';
       const size = 'w342';
-      return posterPath ? '${baseUrl}${size}/${posterPath}' : '';
+      return posterPath ? `${baseUrl}${size}/${posterPath}` : '';
     },
     getFlagImage(language) {
       const flagCode =
       languageFlagMapping[language] || 'unknown';
       return flagCode;
-    }  
+    },  
     getRatingStars(rating) {
     const stars = Math.ceil(rating / 2);
     const starsArray = [];
-    for (let i = 1; i < 5; i++) {
-      starsArray.push(i <= stars ? 'full-star' : 'empty-star')
+    for (let i = 0; i < 5; i++) {
+      starsArray.push(i <= stars ? 'full-star' : 'empty-star');
   }
     return starsArray;
     },
