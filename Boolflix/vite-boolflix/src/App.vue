@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style>
-
+/* Background*/
 html, body {
   margin: 0;
   padding: 0;
