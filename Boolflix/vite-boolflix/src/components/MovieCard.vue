@@ -61,7 +61,7 @@ export default {
   /* Style della card */
 }
 
--movie-card img {
+.movie-card img {
   width: 100%;
   height: auto;
   border-radius: 8px;

@@ -4,18 +4,18 @@
     <header>
       <img src="./img/Boolflix.png">
       <div>
-        <input type="text" id="movieSearchInput" v-model="searchTerm" placeholder="Cerca film o serie" />
+        <input type="text" id="movieSearchInput" v-model="state.searchTerm" placeholder="Cerca film o serie" />
         <button @click="searchMovies">Cerca</button>
       </div>
     </header>
     <main>
-      <movie-card v-for="result in $store.state.searchResults" :key="result.id" :movie="result" />
+      <movie-card v-for="result in state.searchResults" :key="result.id" :movie="result" />
     </main>
   </div>
 </template>
 
 <script>
-
+import { state } from './store.js';
 import MovieCard from './components/MovieCard.vue';
 
 export default {
@@ -29,11 +29,21 @@ export default {
   },
   methods: {
     searchMovies() {
-      // Gestione della ricerca API
-      this.$store.dispatch('searchMovies', this.searchTerm);
+      state.getMovies().then(() => {
+        state.getSeries().then(() => {
+          state.searchResults = [
+            ...state.movies,
+            ...state.tvSeries
+          ];
+          
+        });
+      });
     },
   },
-};
+  props: {
+    state: Object
+  },
+}
 </script>
 
 <style>
@@ -82,3 +92,4 @@ main {
 }
 
 </style>
+
