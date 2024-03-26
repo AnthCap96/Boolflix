@@ -9,7 +9,10 @@
       </div>
     </header>
     <main>
-      <movie-card v-for="result in state.searchResults" :key="result.id" :movie="result" />
+      <h2>Movies</h2>
+      <movie-card v-for="result in state.movies" :key="result.id" :movie="result" />
+      <h2>Series</h2>
+      <movie-card v-for="result in state.tvSeries" :key="result.id" :movie="result" />
     </main>
   </div>
 </template>
@@ -24,24 +27,14 @@ export default {
   },
   data() {
     return {
-      searchTerm: '',
+      state,
     };
   },
   methods: {
     searchMovies() {
-      state.getMovies().then(() => {
-        state.getSeries().then(() => {
-          state.searchResults = [
-            ...state.movies,
-            ...state.tvSeries
-          ];
-          
-        });
-      });
+      state.getMovies();
+      state.getSeries();     
     },
-  },
-  props: {
-    state: Object
   },
 }
 </script>

@@ -3,14 +3,16 @@ import { reactive } from 'vue';
 import axios from 'axios';
 
 export const languageFlagMapping = {
-    en: 'us',
-    fr: 'fr',
-    es: 'es',
-    it: 'it',
-    de: 'de'
+    en: '🇺🇸',
+    fr: '🇫🇷', 
+    es: '🇪🇸', 
+    it: '🇮🇹',
+    de: '🇩🇪',
+      
   };
 
 export const API_KEY = 'a1c746a976b3cec0d698d664fba0ac1e';
+
 
 export const state = reactive({
   

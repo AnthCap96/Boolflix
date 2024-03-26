@@ -1,7 +1,7 @@
 <!-- MovieCard.vue -->
 <template>
   <div class="movie-card" @mouseover="showDetails = true" @mouseleave="showDetails = false">
-    <img :src="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster" />
+    <img :src="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster"  />
     <div v-if="showDetails" class="movie-details">
       <h3>{{ movie.title || movie.name }}</h3>
       <p>{{ movie.original_title || movie.original_name }}</p>
@@ -37,14 +37,15 @@ export default {
       languageFlagMapping[language] || 'unknown';
       return flagCode;
     },  
-    getRatingStars(rating) {
-    const stars = Math.ceil(rating / 2);
-    const starsArray = [];
-    for (let i = 0; i < 5; i++) {
-      starsArray.push(i <= stars ? 'full-star' : 'empty-star');
-  }
-    return starsArray;
+    getRatingStars(vote_average) {
+      const stars = vote_average / 2; 
+      return Math.ceil(stars)
     },
+    getStarsClass(index, voteAverage) {
+    return {
+      gold: index <= this.getRatingStars(voteAverage),
+    };
+  }, 
   },
 };
 </script>
@@ -118,7 +119,8 @@ export default {
 }
 
 .empty-star::before {
-  content: '\2605';
+  content: '\2606';
+  color: #ccc;
 }
 
 </style>
