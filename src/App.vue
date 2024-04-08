@@ -4,7 +4,7 @@
     <header>
       <img src="./img/Boolflix.png">
       <div>
-        <input type="text" id="movieSearchInput" v-model="state.searchTerm" placeholder="Cerca film o serie" />
+        <input type="text" id="movieSearchInput" v-model="state.searchTerm" placeholder="Cerca film o serie" v-on:keyup.enter="searchMovies"/>
         <button @click="searchMovies">Cerca</button>
       </div>
     </header>

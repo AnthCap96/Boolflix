@@ -2,16 +2,20 @@
 <template>
   <div class="movie-card" @mouseover="showDetails = true" @mouseleave="showDetails = false">
     <img :src="getMoviePosterUrl(movie.poster_path)" alt="Movie Poster"  />
-    <div v-if="showDetails" class="movie-details">
-      <h3>{{ movie.title || movie.name }}</h3>
+    <div v-if="showDetails" class="movie-details"> 
+      <h3>{{ movie.title || movie.name }}</h3> 
       <p>{{ movie.original_title || movie.original_name }}</p>
-      <span>{{ getFlagImage(movie.original_language) }}</span>
+      <img :src="getFlagImage(movie.original_language)" style="width: 40px;">
       <div class="rating">
-        <span v-for="star in getRatingStars(movie.vote_average)" :key="star" class="stars"><span class="star"></span></span>
+        <span v-for="star in 5 " :key="star" class="stars"><i :class="getStarsClass(star, movie.vote_average)"></i></span>
           <!-- Implementa stelle -->
-        </div>
       </div>
+      <div class="overview" v-if="movie.overview">
+                <div class="description">Overview:</div>
+                <div>{{ movie.overview }}</div>
+              </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -30,21 +34,26 @@ export default {
     getMoviePosterUrl(posterPath) {
       const baseUrl = 'https://image.tmdb.org/t/p/';
       const size = 'w342';
-      return posterPath ? `${baseUrl}${size}/${posterPath}` : '';
+      return posterPath ? `${baseUrl}${size}/${posterPath}` : 'https://www.malaco.com/wp-content/uploads/2016/06/no-photo-available-black-profile-300x300.jpg';
     },
-    getFlagImage(language) {
-      const flagCode =
-      languageFlagMapping[language] || 'unknown';
-      return flagCode;
-    },  
+     getFlagImage(language) {
+      const baseUrl = 'https://flagsapi.com/';
+      const size = '/flat/64.png';
+      return language ? `${baseUrl}${languageFlagMapping[language]}${size}` : '';
+
+     }, 
     getRatingStars(vote_average) {
-      const stars = vote_average / 2; 
+      const stars = vote_average / 2;
       return Math.ceil(stars)
     },
     getStarsClass(index, voteAverage) {
-    return {
-      gold: index <= this.getRatingStars(voteAverage),
-    };
+   if (index <= this.getRatingStars(voteAverage)) {
+    return "full-star"
+   }
+   else {
+    return "empty-star"
+   }
+    ;
   }, 
   },
 };
@@ -72,14 +81,13 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  padding-top: 5px;
+  padding-left: 5px;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: block;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -121,6 +129,12 @@ export default {
 .empty-star::before {
   content: '\2606';
   color: #ccc;
+}
+
+.overview {
+  font-size: 14px;
+  margin-left: 4px;
+  max-width: 100%;
 }
 
 </style>
